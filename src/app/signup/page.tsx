@@ -9,7 +9,6 @@ import { idToEmail, validateId } from "@/lib/authId";
 import { korToEng } from "@/lib/korToEng";
 import { AuthShell } from "@/components/AuthShell";
 import { Field } from "@/components/ui/Field";
-import { PostSignupFeedback } from "@/components/PostSignupFeedback";
 
 /** 숫자만 남겨 010-1234-5678 형태로 하이픈을 자동으로 붙인다. */
 function formatPhone(value: string) {
@@ -31,11 +30,8 @@ export default function SignupPage() {
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [userId, setUserId] = useState<string | null>(null);
   const [memberName, setMemberName] = useState("");
   const [testMode, setTestMode] = useState(false);
-  const [step, setStep] = useState<"welcome" | "review" | "thanks">("welcome");
-  const [feedbackGiven, setFeedbackGiven] = useState(false);
 
   // 이미 로그인한 회원은 회원가입 페이지에 머물 필요가 없다.
   useEffect(() => {
@@ -57,7 +53,6 @@ export default function SignupPage() {
       setError(null);
       setTestMode(true);
       setMemberName(name || "테스트");
-      setUserId(null);
       setDone(true);
       return;
     }
@@ -94,11 +89,10 @@ export default function SignupPage() {
         throw error;
       }
       const newId = data.user?.id ?? null;
-      setUserId(newId);
       setMemberName(name);
       setDone(true);
-      // 가입 즉시 "일반회원"에 등록(전화번호로 다른 행사 정보 보완).
-      // UI(리뷰 창)를 막지 않도록 await 없이 백그라운드로 실행.
+      // 가입 즉시 CNUcare 원회원(=일반회원) 테이블에 등록(전화번호로 다른 행사 정보 보완).
+      // 완료 화면을 막지 않도록 await 없이 백그라운드로 실행.
       if (newId) {
         void supabase.rpc("register_general_member", { p_user_id: newId });
       }
@@ -125,101 +119,42 @@ export default function SignupPage() {
       }
     >
       {done ? (
-        step === "welcome" ? (
-          <div className="space-y-4">
-            {/* 구독 완료 인증 — 현장 직원에게 보여주고 카페 쿠폰 받기 */}
-            <div className="rounded-2xl border-2 border-emerald-400/60 bg-emerald-50/70 p-6 text-center dark:bg-emerald-400/10">
-              <div className="text-5xl">✅</div>
-              <p className="mt-2 text-2xl font-extrabold text-foreground">구독 완료!</p>
-              {memberName && (
-                <p className="mt-1 text-base font-bold text-emerald-700 dark:text-emerald-400">
-                  {memberName} 님
-                </p>
-              )}
-              <div className="mt-5 rounded-xl border-2 border-dashed border-emerald-500/50 bg-background px-4 py-4">
-                <p className="text-2xl">🎟</p>
-                <p className="mt-1 text-base font-extrabold text-foreground">
-                  이 화면을 직원에게 보여주세요
-                </p>
-                <p className="mt-1 text-sm text-muted">
-                  구독 확인 후 <b className="text-foreground">카페 쿠폰</b>을 드립니다.
-                </p>
-              </div>
-              {testMode && (
-                <p className="mt-3 text-xs font-bold text-emerald-700 dark:text-emerald-400">
-                  🧪 테스트 화면 · 실제로 저장되지 않았습니다
-                </p>
-              )}
+        <div className="space-y-4">
+          {/* 구독 완료 인증 — 현장 직원에게 보여주고 카페 쿠폰 받기 */}
+          <div className="rounded-2xl border-2 border-emerald-400/60 bg-emerald-50/70 p-6 text-center dark:bg-emerald-400/10">
+            <div className="text-5xl">✅</div>
+            <p className="mt-2 text-2xl font-extrabold text-foreground">구독 완료!</p>
+            {memberName && (
+              <p className="mt-1 text-base font-bold text-emerald-700 dark:text-emerald-400">
+                {memberName} 님
+              </p>
+            )}
+            <div className="mt-5 rounded-xl border-2 border-dashed border-emerald-500/50 bg-background px-4 py-4">
+              <p className="text-2xl">🎟</p>
+              <p className="mt-1 text-base font-extrabold text-foreground">
+                이 화면을 직원에게 보여주세요
+              </p>
+              <p className="mt-1 text-sm text-muted">
+                구독 확인 후 <b className="text-foreground">카페 쿠폰</b>을 드립니다.
+              </p>
             </div>
-
-            {testMode ? (
-              <button
-                onClick={() => {
-                  router.push("/");
-                  router.refresh();
-                }}
-                className="w-full rounded-full border border-border py-3 text-center text-sm font-semibold text-muted transition-colors hover:text-foreground"
-              >
-                홈으로 가기
-              </button>
-            ) : (
-              /* 방문 리뷰 이벤트 (선택) */
-              <div className="rounded-xl border border-accent/40 bg-accent/5 p-6 text-center">
-                <div className="rounded-lg border border-amber-400/40 bg-amber-400/10 px-4 py-3 text-sm text-foreground">
-                  📣 지금 <b>방문 리뷰 이벤트</b>도 진행 중이에요. 잠깐이면 됩니다.
-                  <span className="mt-1 block font-bold text-amber-700">
-                    🎁 참여 시 100% 카페 기프티콘 증정!
-                  </span>
-                </div>
-                <button
-                  onClick={() => setStep("review")}
-                  className="mt-5 w-full rounded-full bg-rose-500 py-3.5 text-base font-extrabold text-white shadow-lg shadow-rose-500/30 transition-all hover:scale-[1.02] hover:bg-rose-600 active:scale-95"
-                >
-                  🎁 리뷰 작성하고 기프티콘 받기
-                </button>
-                <button
-                  onClick={() => {
-                    router.push("/");
-                    router.refresh();
-                  }}
-                  className="mt-3 w-full text-center text-sm text-muted transition-colors hover:text-foreground"
-                >
-                  나중에 하기
-                </button>
-              </div>
+            {testMode && (
+              <p className="mt-3 text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                🧪 테스트 화면 · 실제로 저장되지 않았습니다
+              </p>
             )}
           </div>
-        ) : step === "review" ? (
-          <PostSignupFeedback
-            userId={userId}
-            onDone={(submitted) => {
-              setFeedbackGiven(submitted);
-              setStep("thanks");
+
+          <button
+            onClick={() => {
+              router.push("/");
+              router.refresh();
             }}
-          />
-        ) : (
-          <div className="rounded-xl border border-accent/40 bg-accent/5 p-6 text-center">
-            <p className="text-lg font-bold text-foreground">
-              {feedbackGiven
-                ? "🎁 리뷰 이벤트에 참여해주셔서 감사합니다!"
-                : "🎉 가입을 환영합니다!"}
-            </p>
-            <p className="mt-2 text-sm text-muted">
-              {feedbackGiven
-                ? "입력하신 연락처로 카페 기프티콘을 보내드릴게요."
-                : "네이처 스테이의 회원이 되신 것을 환영합니다."}
-            </p>
-            <button
-              onClick={() => {
-                router.push("/");
-                router.refresh();
-              }}
-              className="mt-5 rounded-full bg-accent px-6 py-2.5 text-sm font-bold text-on-dark hover:bg-accent-strong"
-            >
-              홈으로 가기
-            </button>
-          </div>
-        )
+            className="w-full rounded-full border border-border py-3 text-center text-sm font-semibold text-muted transition-colors hover:text-foreground"
+          >
+            홈으로 가기
+          </button>
+        </div>
       ) : (
         <form onSubmit={onSubmit} noValidate className="space-y-4">
           <Field
