@@ -89,13 +89,18 @@ export default function SignupPage() {
         throw error;
       }
       const newId = data.user?.id ?? null;
+      // 가입 즉시 CNUcare 원회원(=일반회원) 테이블에 등록.
+      // 완료 화면(=쿠폰)으로 넘어가기 전에 await 해서 등록 누락을 막는다.
+      // (예전엔 백그라운드 void 호출이라, 사용자가 바로 이탈하면 명단에 안 들어가는 일이 있었음)
+      if (newId) {
+        const { error: regErr } = await supabase.rpc("register_general_member", {
+          p_user_id: newId,
+        });
+        // 등록 실패해도 쿠폰(완료 화면)은 막지 않되, 원인 파악용으로 남긴다.
+        if (regErr) console.error("원회원 등록 실패:", regErr.message);
+      }
       setMemberName(name);
       setDone(true);
-      // 가입 즉시 CNUcare 원회원(=일반회원) 테이블에 등록(전화번호로 다른 행사 정보 보완).
-      // 완료 화면을 막지 않도록 await 없이 백그라운드로 실행.
-      if (newId) {
-        void supabase.rpc("register_general_member", { p_user_id: newId });
-      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "가입 중 오류가 발생했습니다.");
     } finally {
