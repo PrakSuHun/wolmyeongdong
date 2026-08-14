@@ -16,8 +16,8 @@ const slices = [
 ];
 
 const spots = [
-  { img: "/prive_main.jpg", name: "기도동산", tag: "기도의 사면", desc: "능선 위로 펼쳐지는 네이처 스테이 전경.", pos: "bottom" },
-  { img: "/water-main.jpg", name: "월명호", tag: "호수·정자", desc: "에메랄드 빛 호수 위 꽃피는 이상세계.", pos: "center" },
+  { img: "/lawn-field.jpg", name: "광활한 잔디밭에 누워 바라보는 하늘", tag: "잔디밭", desc: "넓게 펼쳐진 초록 잔디에 누워 하늘을 바라보며 깊은 숨을 들이쉬어보세요.", pos: "center" },
+  { img: "/water-main.jpg", name: "푸른 물결 속으로", tag: "월명호", desc: "에메랄드 빛으로 반짝이는 월명호의 생명력 넘치는 물결, 청량한 소리와 시원한 물안개를 흩뿌리며 쏟아져내리는 폭포수들. 더위도, 무거운 생각도 어느새 싸-악 씻겨내려갑니다.", pos: "center" },
   { img: "/seven_main.jpg", name: "성자사랑의 집", tag: "상징 건물", desc: "네이처 스테이 안의 상징적인 건물 성전.", pos: "center" },
   { img: "/star_main.jpg", name: "성자바위", tag: "기암", desc: "땅속에 묻혀 있던 돌 보화를 만나다.", pos: "bottom" },
 ];
