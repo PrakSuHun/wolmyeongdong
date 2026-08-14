@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Coffee, Gift } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useUser } from "@/lib/useUser";
@@ -31,40 +32,6 @@ const CONFETTI = [
   { c: "bg-amber-200", s: "right-[27%] top-6 h-2 w-2 rotate-45" },
   { c: "bg-emerald-300", s: "right-[15%] top-16 h-2 w-2 rounded-full" },
 ];
-
-/** 테이크아웃 음료컵 (배경 장식용) */
-function CoffeeIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      {/* 컵 몸통 */}
-      <path d="M6.5 9h11l-1.05 10.8A2 2 0 0 1 14.46 21.6H9.54a2 2 0 0 1-1.99-1.8L6.5 9Z" />
-      {/* 뚜껑 테두리 */}
-      <path d="M5.5 6.6h13l-.5 2.4H6L5.5 6.6Z" />
-      {/* 뚜껑 윗면 */}
-      <path d="M8 6.6V5.6a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1" />
-      {/* 컵 홀더 라인 */}
-      <path d="M7.5 13.2h9" />
-    </svg>
-  );
-}
-
-/** 리본 달린 선물상자 (배경 장식용) */
-function GiftIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      {/* 상단 뚜껑 밴드 */}
-      <rect x="3.8" y="8" width="16.4" height="4.4" rx="1" />
-      {/* 상자 몸통 */}
-      <path d="M5.3 12.4V20a1 1 0 0 0 1 1h11.4a1 1 0 0 0 1-1v-7.6" />
-      {/* 세로 리본 */}
-      <path d="M12 8v13" />
-      {/* 왼쪽 리본 매듭 */}
-      <path d="M12 8C9 8 7.8 4.4 9.8 4.4c1.4 0 2.2 2 2.2 3.6Z" />
-      {/* 오른쪽 리본 매듭 */}
-      <path d="M12 8c3 0 4.2-3.6 2.2-3.6-1.4 0-2.2 2-2.2 3.6Z" />
-    </svg>
-  );
-}
 
 function HomeIcon({ className }: { className?: string }) {
   return (
@@ -212,8 +179,8 @@ export default function SignupPage() {
 
             {/* 카페 쿠폰 인증 카드 */}
             <div className="relative mt-7 overflow-hidden rounded-2xl border border-emerald-200 bg-emerald-50/60 px-5 py-6 text-center sm:mt-8 sm:px-6 sm:py-7">
-              <CoffeeIcon className="pointer-events-none absolute -left-3 bottom-1 h-20 w-20 text-emerald-500/10 sm:h-24 sm:w-24" />
-              <GiftIcon className="pointer-events-none absolute -right-3 bottom-1 h-20 w-20 text-emerald-500/10 sm:h-24 sm:w-24" />
+              <Coffee strokeWidth={1.5} className="pointer-events-none absolute -left-2 bottom-2 h-16 w-16 text-emerald-500/10 sm:h-20 sm:w-20" />
+              <Gift strokeWidth={1.5} className="pointer-events-none absolute -right-2 bottom-2 h-16 w-16 text-emerald-500/10 sm:h-20 sm:w-20" />
               <div className="relative">
                 <CouponTicket />
                 <p className="mt-3 text-base font-extrabold text-neutral-900 sm:text-lg">이 화면을 직원에게 보여주세요</p>
