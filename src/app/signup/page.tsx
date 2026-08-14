@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Coffee, Gift } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useUser } from "@/lib/useUser";
@@ -178,10 +177,8 @@ export default function SignupPage() {
             </div>
 
             {/* 카페 쿠폰 인증 카드 */}
-            <div className="relative mt-7 overflow-hidden rounded-2xl border border-emerald-200 bg-emerald-50/60 px-5 py-6 text-center sm:mt-8 sm:px-6 sm:py-7">
-              <Coffee strokeWidth={1.5} className="pointer-events-none absolute -left-2 bottom-2 h-16 w-16 text-emerald-500/10 sm:h-20 sm:w-20" />
-              <Gift strokeWidth={1.5} className="pointer-events-none absolute -right-2 bottom-2 h-16 w-16 text-emerald-500/10 sm:h-20 sm:w-20" />
-              <div className="relative">
+            <div className="mt-7 rounded-2xl border border-emerald-200 bg-emerald-50/60 px-5 py-6 text-center sm:mt-8 sm:px-6 sm:py-7">
+              <div>
                 <CouponTicket />
                 <p className="mt-3 text-base font-extrabold text-neutral-900 sm:text-lg">이 화면을 직원에게 보여주세요</p>
                 <p className="mt-1.5 text-sm text-neutral-500">
