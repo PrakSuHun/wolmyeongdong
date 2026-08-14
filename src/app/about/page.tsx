@@ -11,7 +11,7 @@ const values = [
 ];
 
 const IMG = {
-  story: "/about-story.jpg",
+  story: "/about-story.png",
 };
 
 export default function AboutPage() {
