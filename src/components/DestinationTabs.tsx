@@ -15,7 +15,7 @@ const data: Record<string, Card[]> = {
     { img: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?auto=format&fit=crop&w=700&q=80", name: "숲속 한옥동", area: "남편 숙소", meta: "4인실" },
     { img: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?auto=format&fit=crop&w=700&q=80", name: "전망 게스트룸", area: "본관", meta: "2인실" },
     { img: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=700&q=80", name: "일출 전망동", area: "동편 언덕", meta: "커플룸" },
-    { img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=700&q=80", name: "단체 수련관", area: "대강당 옆", meta: "단체" },
+    { img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=700&q=80", name: "단체 세미나관", area: "대강당 옆", meta: "단체" },
   ],
   체험: [
     { img: "/yoga.jpg", name: "자연 명상", area: "야외 데크", meta: "매일 06:00" },

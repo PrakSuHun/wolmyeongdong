@@ -14,13 +14,6 @@ const IMG = {
   story: "/about-story.jpg",
 };
 
-const contact = [
-  { label: "주소", value: "충남 금산군 진산면" },
-  { label: "전화", value: "063-000-0000" },
-  { label: "이메일", value: "contact@wolmyeong.kr" },
-  { label: "운영 시간", value: "매일 09:00 – 18:00" },
-];
-
 export default function AboutPage() {
   return (
     <>
@@ -74,30 +67,6 @@ export default function AboutPage() {
 
       {/* 이용 안내 (방문 에티켓) */}
       <UsageGuide />
-
-      {/* 오시는 길 */}
-      <section className="border-t border-border bg-surface py-16 sm:py-24">
-        <div className="container-x">
-          <div className="mb-10 text-center">
-            <p className="eyebrow mb-3">Location</p>
-            <h2 className="text-4xl text-foreground sm:text-5xl">오시는 길</h2>
-            <p className="mx-auto mt-4 max-w-xl text-muted">
-              방문 예약·단체 문의는 아래 연락처로 편하게 남겨주세요.
-            </p>
-          </div>
-          <dl className="mx-auto grid max-w-3xl gap-5 sm:grid-cols-2">
-            {contact.map((c) => (
-              <div
-                key={c.label}
-                className="rounded-2xl border border-border bg-background p-6"
-              >
-                <dt className="text-sm text-muted">{c.label}</dt>
-                <dd className="mt-1 text-lg text-foreground">{c.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
 
       <JoinCTA />
     </>

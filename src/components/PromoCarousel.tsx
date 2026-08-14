@@ -24,6 +24,7 @@ const toneClass: Record<string, string> = {
   new: "bg-amber-500",
 };
 
+// 행사·이벤트 페이지의 상위 4개 프로그램을 순서대로 노출한다.
 const slides: Slide[] = [
   {
     badge: "상시 모집",
@@ -37,33 +38,33 @@ const slides: Slide[] = [
     href: "/events/templestay",
   },
   {
-    badge: "여름 행사",
-    tone: "event",
-    emoji: "🏡",
-    title: "촌캉스",
-    highlight: "고기 먹고, 별 보러 가자",
-    date: "7/26 (일) · 대전 출발",
-    img: "/promo-chon.jpg",
-    status: "soon",
-  },
-  {
-    badge: "여름 행사",
-    tone: "hot",
-    emoji: "🌊",
-    title: "썸머 워터파크",
-    highlight: "산수화 속 호수 수영장 개장",
-    date: "8/15 (토) · 10–18시",
-    img: "/waterplay.jpg",
-    status: "soon",
-  },
-  {
-    badge: "가을 행사",
+    badge: "가을 축제",
     tone: "new",
+    emoji: "🔦",
+    title: "동굴 탐험 체험",
+    highlight: "신비로운 동굴 속으로 떠나는 가을 탐험",
+    date: "2026 가을 예정",
+    img: "/cave-tour.jpg",
+    status: "soon",
+  },
+  {
+    badge: "가을 축제",
+    tone: "hot",
     emoji: "🍁",
-    title: "단풍 축제",
-    highlight: "울긋불긋 물든 가을 속으로",
-    date: "10월 예정",
-    img: "/maple.jpg",
+    title: "단풍 바베큐 파티",
+    highlight: "단풍 즐기며 군밤 먹고, 통돼지 바베큐까지",
+    date: "10월 단풍 절정 시즌",
+    img: "/maple-bbq.jpg",
+    status: "soon",
+  },
+  {
+    badge: "가을 축제",
+    tone: "event",
+    emoji: "🌌",
+    title: "밤 별보기 축제",
+    highlight: "쏟아지는 별과 별똥별, 그리고 천체망원경",
+    date: "2026 가을밤 예정",
+    img: "/stargazing.jpg",
     status: "soon",
   },
 ];

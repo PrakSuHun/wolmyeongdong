@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@/lib/useUser";
 
 /** QR 입장 시 뜨는 가을·겨울 축제 라인업 팝업.
- *  '가을 동굴 탐험 축제'부터 여러 축제를 순회 노출하고, 구독 시 카페 쿠폰을 안내한다.
+ *  '동굴 탐험 체험'부터 여러 축제를 순회 노출하고, 구독 시 카페 쿠폰을 안내한다.
  *  비회원은 구독(가입)으로, 회원은 행사 페이지로 유도. */
 const HIDE_KEY = "wmd_promo_festival_2026"; // "다시 보지 않기" (영구)
 const SEEN_KEY = "wmd_promo_festival_seen"; // 이번 방문에 이미 봄 (세션)
@@ -13,27 +13,27 @@ const SEEN_KEY = "wmd_promo_festival_seen"; // 이번 방문에 이미 봄 (세�
 // 순회 노출할 축제 라인업
 const SLIDES = [
   {
-    src: "/forest.jpg",
+    src: "/cave-tour.jpg",
     badge: "가을 축제",
-    title: "가을 동굴 탐험 축제",
+    title: "동굴 탐험 체험",
     tagline: "신비로운 동굴 속으로 떠나는 가을 탐험",
   },
   {
-    src: "/maple.jpg",
+    src: "/maple-bbq.jpg",
     badge: "가을 축제",
-    title: "가을 단풍 바베큐 파티",
+    title: "단풍 바베큐 파티",
     tagline: "대둔산 단풍 명소에서 군밤 · 통돼지 바베큐",
   },
   {
     src: "/stargazing.jpg",
     badge: "가을 축제",
-    title: "가을밤 별보기 축제",
+    title: "밤 별보기 축제",
     tagline: "쏟아지는 별과 별똥별, 천체망원경까지",
   },
   {
     src: "/snow.jpg",
     badge: "겨울 축제",
-    title: "겨울 얼음썰매 캠핑",
+    title: "얼음썰매 캠핑",
     tagline: "얼음썰매 · 눈썰매 · 군고구마 잔치, 무료로 마음껏",
   },
   {

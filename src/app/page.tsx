@@ -2,23 +2,19 @@ import Link from "next/link";
 import { PromoCarousel } from "@/components/PromoCarousel";
 import { HeroCta } from "@/components/HeroCta";
 import { JoinCTA } from "@/components/JoinCTA";
-import { EventPopup } from "@/components/EventPopup";
 
 const experiences = [
-  { img: "/stargazing.jpg", emoji: "🌌", title: "은하수 별빛 명상", desc: "쏟아지는 별 아래에서 마음을 비우는 한밤의 명상", tag: "밤", member: true },
-  { img: "/promo-chon.jpg", emoji: "🏡", title: "촌캉스", desc: "삼겹살 파티부터 별 보러 가기까지, 시골에서 보내는 하룻밤", tag: "여름", member: true },
-  { img: "/waterplay.jpg", emoji: "💧", title: "썸머 워터파크", desc: "산수화 속 호수 수영장에서 즐기는 짜릿한 여름", tag: "여름", member: true },
+  { img: "/waterpark-pool.jpg", emoji: "💧", title: "썸머 워터파크", desc: "산수화 속 호수 수영장에서 즐기는 짜릿한 여름", tag: "여름", member: true },
+  { img: "/maple-bbq.jpg", emoji: "🍁", title: "단풍 바베큐 파티", desc: "단풍 즐기며 군밤 먹고, 통돼지 바베큐까지", tag: "가을", member: true },
+  { img: "/cave-tour.jpg", emoji: "🔦", title: "동굴 탐험 체험", desc: "신비로운 동굴 속으로 떠나는 가을 탐험", tag: "가을", member: true },
+  { img: "/stargazing.jpg", emoji: "🌌", title: "밤 별보기 축제", desc: "쏟아지는 별과 별똥별을 잔디밭에 누워 바라보는 밤", tag: "밤", member: true },
+  { img: "/snow.jpg?v=2", emoji: "❄️", title: "얼음썰매 캠핑", desc: "호수 얼음썰매와 잔디밭 눈썰매를 무료로 마음껏", tag: "겨울", member: true },
   { img: "/promo-chapel.jpg", emoji: "🌿", title: "템플스테이", desc: "일상을 벗어나 나를 알아가는 힐링 시간", tag: "상시", member: true },
-  { img: "/maple.jpg", emoji: "🍁", title: "단풍 축제", desc: "울긋불긋 단풍이 물든 가을을 만끽하는 축제", tag: "가을", member: true },
-  { img: "/snow.jpg?v=2", emoji: "❄️", title: "겨울 설경 산책", desc: "순백의 눈길을 걸으며 만끽하는 고요한 겨울", tag: "겨울", member: true },
 ];
 
 export default function Home() {
   return (
     <>
-      {/* 첫 방문 행사 홍보 팝업 */}
-      <EventPopup />
-
       {/* ── 1. 히어로 (배경 영상) ───────────────── */}
       <section className="relative flex min-h-[90vh] items-center overflow-hidden">
         <video
