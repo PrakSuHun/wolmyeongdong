@@ -69,8 +69,8 @@ function HomeIcon({ className }: { className?: string }) {
 function CouponTicket() {
   return (
     <div className="relative mx-auto inline-flex h-11 w-16 items-center justify-center rounded-md bg-gradient-to-b from-rose-400 to-rose-500 shadow-sm shadow-rose-500/30">
-      <span className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-emerald-50 dark:bg-neutral-900" />
-      <span className="absolute -right-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-emerald-50 dark:bg-neutral-900" />
+      <span className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-emerald-50" />
+      <span className="absolute -right-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-emerald-50" />
       <div className="text-center leading-none text-white">
         <p className="text-[0.5rem] font-extrabold tracking-wider">CAFE</p>
         <p className="mt-0.5 text-[0.5rem] font-extrabold tracking-wider">COUPON</p>
@@ -172,14 +172,15 @@ export default function SignupPage() {
   // 구독 완료 — 현장 직원에게 보여주고 카페 쿠폰을 받는 인증 화면 (레퍼런스 디자인)
   // 헤더·푸터 위를 완전히 덮는 전용 전체화면(fixed inset-0)으로 렌더한다.
   if (done) {
+    // 다크모드와 무관하게 항상 밝은 레퍼런스 톤으로 렌더 (직원 제시용 인증 화면)
     return (
-      <div className="fixed inset-0 z-[60] overflow-y-auto overflow-x-hidden bg-gradient-to-b from-emerald-50 via-background to-background dark:from-emerald-950/40">
+      <div className="fixed inset-0 z-[60] overflow-y-auto overflow-x-hidden bg-gradient-to-b from-emerald-50 via-white to-white">
         {/* 부드러운 초록 배경 블롭 (컨테이너 안에 가둬 가로 넘침 방지) */}
-        <div aria-hidden className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl dark:bg-emerald-500/10" />
-        <div aria-hidden className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-emerald-200/40 blur-3xl dark:bg-emerald-500/10" />
+        <div aria-hidden className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-emerald-200/40 blur-3xl" />
 
         <div className="flex min-h-full items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
-          <div className="relative w-full max-w-lg fade-up rounded-3xl border border-emerald-100 bg-white/90 p-6 shadow-xl shadow-emerald-900/5 backdrop-blur sm:p-12 dark:border-white/10 dark:bg-neutral-900/80">
+          <div className="relative w-full max-w-lg fade-up rounded-3xl border border-emerald-100 bg-white/90 p-6 shadow-xl shadow-emerald-900/5 backdrop-blur sm:p-12">
             {/* 체크 아이콘 + 컨페티 */}
             <div className="relative mx-auto flex flex-col items-center">
               {CONFETTI.map((p, i) => (
@@ -190,29 +191,29 @@ export default function SignupPage() {
                   <path d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h1 className="mt-5 text-3xl font-extrabold text-foreground sm:mt-6 sm:text-5xl">구독 완료!</h1>
+              <h1 className="mt-5 text-3xl font-extrabold text-neutral-900 sm:mt-6 sm:text-5xl">구독 완료!</h1>
               {memberName && (
-                <p className="mt-2 text-lg font-bold text-emerald-600 sm:text-xl dark:text-emerald-400">
+                <p className="mt-2 text-lg font-bold text-emerald-600 sm:text-xl">
                   {memberName} 님
                 </p>
               )}
             </div>
 
             {/* 카페 쿠폰 인증 카드 */}
-            <div className="relative mt-7 overflow-hidden rounded-2xl border-2 border-dashed border-emerald-300/70 bg-emerald-50/60 px-5 py-6 text-center sm:mt-8 sm:px-6 sm:py-7 dark:border-emerald-400/20 dark:bg-emerald-400/5">
-              <CoffeeIcon className="pointer-events-none absolute -left-3 bottom-1 h-20 w-20 text-emerald-500/10 sm:h-24 sm:w-24 dark:text-emerald-400/10" />
-              <GiftIcon className="pointer-events-none absolute -right-3 bottom-1 h-20 w-20 text-emerald-500/10 sm:h-24 sm:w-24 dark:text-emerald-400/10" />
+            <div className="relative mt-7 overflow-hidden rounded-2xl border-2 border-dashed border-emerald-300/70 bg-emerald-50/60 px-5 py-6 text-center sm:mt-8 sm:px-6 sm:py-7">
+              <CoffeeIcon className="pointer-events-none absolute -left-3 bottom-1 h-20 w-20 text-emerald-500/10 sm:h-24 sm:w-24" />
+              <GiftIcon className="pointer-events-none absolute -right-3 bottom-1 h-20 w-20 text-emerald-500/10 sm:h-24 sm:w-24" />
               <div className="relative">
                 <CouponTicket />
-                <p className="mt-3 text-base font-extrabold text-foreground sm:text-lg">이 화면을 직원에게 보여주세요</p>
-                <p className="mt-1.5 text-sm text-muted">
-                  구독 확인 후 <b className="text-emerald-600 dark:text-emerald-400">카페 쿠폰</b>을 드립니다.
+                <p className="mt-3 text-base font-extrabold text-neutral-900 sm:text-lg">이 화면을 직원에게 보여주세요</p>
+                <p className="mt-1.5 text-sm text-neutral-500">
+                  구독 확인 후 <b className="text-emerald-600">카페 쿠폰</b>을 드립니다.
                 </p>
               </div>
             </div>
 
             {testMode && (
-              <p className="mt-4 text-center text-xs font-bold text-emerald-600 dark:text-emerald-400">
+              <p className="mt-4 text-center text-xs font-bold text-emerald-600">
                 🧪 테스트 화면 · 실제로 저장되지 않았습니다
               </p>
             )}
@@ -222,9 +223,9 @@ export default function SignupPage() {
                 router.push("/");
                 router.refresh();
               }}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background py-3.5 text-base font-bold text-foreground transition-colors hover:border-emerald-400 hover:text-emerald-600 sm:mt-7 sm:py-4"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white py-3.5 text-base font-bold text-neutral-900 transition-colors hover:border-emerald-400 hover:text-emerald-600 sm:mt-7 sm:py-4"
             >
-              <HomeIcon className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <HomeIcon className="h-5 w-5 text-emerald-600" />
               홈으로 가기
             </button>
           </div>
