@@ -18,6 +18,67 @@ function formatPhone(value: string) {
   return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7)}`;
 }
 
+/** 구독 완료 화면의 색종이(컨페티) 조각 — 체크 아이콘 주변에 흩뿌린다. */
+const CONFETTI = [
+  { c: "bg-emerald-400", s: "left-[18%] top-1 h-2.5 w-2.5 rotate-12" },
+  { c: "bg-amber-300", s: "left-[10%] top-10 h-2 w-3 -rotate-12" },
+  { c: "bg-rose-400", s: "left-[6%] top-20 h-2.5 w-2.5 rotate-45" },
+  { c: "bg-emerald-300", s: "left-[27%] top-6 h-2 w-2 rotate-45" },
+  { c: "bg-pink-400", s: "left-[15%] top-16 h-2 w-2 rounded-full" },
+  { c: "bg-amber-300", s: "right-[18%] top-1 h-2.5 w-2.5 -rotate-12" },
+  { c: "bg-emerald-400", s: "right-[10%] top-10 h-2 w-3 rotate-12" },
+  { c: "bg-rose-300", s: "right-[6%] top-20 h-2.5 w-2.5 rotate-45" },
+  { c: "bg-amber-200", s: "right-[27%] top-6 h-2 w-2 rotate-45" },
+  { c: "bg-emerald-300", s: "right-[15%] top-16 h-2 w-2 rounded-full" },
+];
+
+function CoffeeIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M6 8h12l-1.2 12.2A2 2 0 0 1 14.8 22H9.2a2 2 0 0 1-2-1.8L6 8Z" />
+      <path d="M5 8h14l-.4-3H5.4L5 8Z" />
+      <path d="M9.5 3.5 9 5" />
+      <path d="M14.5 3.5 15 5" />
+    </svg>
+  );
+}
+
+function GiftIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect x="3.5" y="8.5" width="17" height="4" rx="1" />
+      <path d="M5.5 12.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-7.5" />
+      <path d="M12 8.5V21" />
+      <path d="M12 8.5C12 8.5 10.6 4 8.3 4.8 6.6 5.4 7.4 8.5 12 8.5Z" />
+      <path d="M12 8.5C12 8.5 13.4 4 15.7 4.8 17.4 5.4 16.6 8.5 12 8.5Z" />
+    </svg>
+  );
+}
+
+function HomeIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M3 10.5 12 3l9 7.5" />
+      <path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5" />
+      <path d="M9.5 21v-6h5v6" />
+    </svg>
+  );
+}
+
+/** CAFE / COUPON 문구가 든 빨간 티켓 아이콘 */
+function CouponTicket() {
+  return (
+    <div className="relative mx-auto inline-flex h-11 w-16 items-center justify-center rounded-md bg-gradient-to-b from-rose-400 to-rose-500 shadow-sm shadow-rose-500/30">
+      <span className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-emerald-50 dark:bg-neutral-900" />
+      <span className="absolute -right-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-emerald-50 dark:bg-neutral-900" />
+      <div className="text-center leading-none text-white">
+        <p className="text-[0.5rem] font-extrabold tracking-wider">CAFE</p>
+        <p className="mt-0.5 text-[0.5rem] font-extrabold tracking-wider">COUPON</p>
+      </div>
+    </div>
+  );
+}
+
 export default function SignupPage() {
   const router = useRouter();
   const { user, ready } = useUser();
@@ -108,60 +169,81 @@ export default function SignupPage() {
     }
   }
 
-  return (
-    <AuthShell
-      title={done ? undefined : "구독하기"}
-      subtitle={done ? undefined : "네이처 스테이의 회원이 되어 특별한 혜택을 누리세요."}
-      footer={
-        done ? undefined : (
-          <>
-            이미 회원이신가요?{" "}
-            <Link href="/login" className="font-bold text-accent hover:text-accent-strong">
-              로그인
-            </Link>
-          </>
-        )
-      }
-    >
-      {done ? (
-        <div className="space-y-4">
-          {/* 구독 완료 인증 — 현장 직원에게 보여주고 카페 쿠폰 받기 */}
-          <div className="rounded-2xl border-2 border-emerald-400/60 bg-emerald-50/70 p-6 text-center dark:bg-emerald-400/10">
-            <div className="text-5xl">✅</div>
-            <p className="mt-2 text-2xl font-extrabold text-foreground">구독 완료!</p>
+  // 구독 완료 — 현장 직원에게 보여주고 카페 쿠폰을 받는 인증 화면 (레퍼런스 디자인)
+  if (done) {
+    return (
+      <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-emerald-50 via-background to-background px-5 py-14 dark:from-emerald-950/30">
+        {/* 부드러운 초록 배경 블롭 */}
+        <div aria-hidden className="pointer-events-none absolute -left-24 top-8 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl dark:bg-emerald-500/10" />
+        <div aria-hidden className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-emerald-200/40 blur-3xl dark:bg-emerald-500/10" />
+
+        <div className="relative w-full max-w-lg fade-up rounded-3xl border border-emerald-100 bg-white/90 p-8 shadow-xl shadow-emerald-900/5 backdrop-blur sm:p-12 dark:border-white/10 dark:bg-neutral-900/80">
+          {/* 체크 아이콘 + 컨페티 */}
+          <div className="relative mx-auto flex flex-col items-center">
+            {CONFETTI.map((p, i) => (
+              <span key={i} aria-hidden className={`absolute rounded-[2px] ${p.c} ${p.s}`} />
+            ))}
+            <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-lg shadow-emerald-500/30">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" className="h-12 w-12">
+                <path d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h1 className="mt-6 text-4xl font-extrabold text-foreground sm:text-5xl">구독 완료!</h1>
             {memberName && (
-              <p className="mt-1 text-base font-bold text-emerald-700 dark:text-emerald-400">
+              <p className="mt-2 text-xl font-bold text-emerald-600 dark:text-emerald-400">
                 {memberName} 님
               </p>
             )}
-            <div className="mt-5 rounded-xl border-2 border-dashed border-emerald-500/50 bg-background px-4 py-4">
-              <p className="text-2xl">🎟</p>
-              <p className="mt-1 text-base font-extrabold text-foreground">
-                이 화면을 직원에게 보여주세요
-              </p>
-              <p className="mt-1 text-sm text-muted">
-                구독 확인 후 <b className="text-foreground">카페 쿠폰</b>을 드립니다.
+          </div>
+
+          {/* 카페 쿠폰 인증 카드 */}
+          <div className="relative mt-8 overflow-hidden rounded-2xl border-2 border-dashed border-emerald-300/70 bg-emerald-50/60 px-6 py-7 text-center dark:border-emerald-400/20 dark:bg-emerald-400/5">
+            <CoffeeIcon className="pointer-events-none absolute -left-3 bottom-1 h-24 w-24 text-emerald-500/10 dark:text-emerald-400/10" />
+            <GiftIcon className="pointer-events-none absolute -right-3 bottom-1 h-24 w-24 text-emerald-500/10 dark:text-emerald-400/10" />
+            <div className="relative">
+              <CouponTicket />
+              <p className="mt-3 text-lg font-extrabold text-foreground">이 화면을 직원에게 보여주세요</p>
+              <p className="mt-1.5 text-sm text-muted">
+                구독 확인 후 <b className="text-emerald-600 dark:text-emerald-400">카페 쿠폰</b>을 드립니다.
               </p>
             </div>
-            {testMode && (
-              <p className="mt-3 text-xs font-bold text-emerald-700 dark:text-emerald-400">
-                🧪 테스트 화면 · 실제로 저장되지 않았습니다
-              </p>
-            )}
           </div>
+
+          {testMode && (
+            <p className="mt-4 text-center text-xs font-bold text-emerald-600 dark:text-emerald-400">
+              🧪 테스트 화면 · 실제로 저장되지 않았습니다
+            </p>
+          )}
 
           <button
             onClick={() => {
               router.push("/");
               router.refresh();
             }}
-            className="w-full rounded-full border border-border py-3 text-center text-sm font-semibold text-muted transition-colors hover:text-foreground"
+            className="mt-7 flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background py-4 text-base font-bold text-foreground transition-colors hover:border-emerald-400 hover:text-emerald-600"
           >
+            <HomeIcon className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             홈으로 가기
           </button>
         </div>
-      ) : (
-        <form onSubmit={onSubmit} noValidate className="space-y-4">
+      </main>
+    );
+  }
+
+  return (
+    <AuthShell
+      title="구독하기"
+      subtitle="네이처 스테이의 회원이 되어 특별한 혜택을 누리세요."
+      footer={
+        <>
+          이미 회원이신가요?{" "}
+          <Link href="/login" className="font-bold text-accent hover:text-accent-strong">
+            로그인
+          </Link>
+        </>
+      }
+    >
+      <form onSubmit={onSubmit} noValidate className="space-y-4">
           <Field
             label="아이디"
             name="login_id"
@@ -266,7 +348,6 @@ export default function SignupPage() {
             {loading ? "구독 처리 중…" : "구독하기"}
           </button>
         </form>
-      )}
     </AuthShell>
   );
 }
