@@ -32,25 +32,36 @@ const CONFETTI = [
   { c: "bg-emerald-300", s: "right-[15%] top-16 h-2 w-2 rounded-full" },
 ];
 
+/** 테이크아웃 음료컵 (배경 장식용) */
 function CoffeeIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M6 8h12l-1.2 12.2A2 2 0 0 1 14.8 22H9.2a2 2 0 0 1-2-1.8L6 8Z" />
-      <path d="M5 8h14l-.4-3H5.4L5 8Z" />
-      <path d="M9.5 3.5 9 5" />
-      <path d="M14.5 3.5 15 5" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {/* 컵 몸통 */}
+      <path d="M6.5 9h11l-1.05 10.8A2 2 0 0 1 14.46 21.6H9.54a2 2 0 0 1-1.99-1.8L6.5 9Z" />
+      {/* 뚜껑 테두리 */}
+      <path d="M5.5 6.6h13l-.5 2.4H6L5.5 6.6Z" />
+      {/* 뚜껑 윗면 */}
+      <path d="M8 6.6V5.6a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1" />
+      {/* 컵 홀더 라인 */}
+      <path d="M7.5 13.2h9" />
     </svg>
   );
 }
 
+/** 리본 달린 선물상자 (배경 장식용) */
 function GiftIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <rect x="3.5" y="8.5" width="17" height="4" rx="1" />
-      <path d="M5.5 12.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-7.5" />
-      <path d="M12 8.5V21" />
-      <path d="M12 8.5C12 8.5 10.6 4 8.3 4.8 6.6 5.4 7.4 8.5 12 8.5Z" />
-      <path d="M12 8.5C12 8.5 13.4 4 15.7 4.8 17.4 5.4 16.6 8.5 12 8.5Z" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {/* 상단 뚜껑 밴드 */}
+      <rect x="3.8" y="8" width="16.4" height="4.4" rx="1" />
+      {/* 상자 몸통 */}
+      <path d="M5.3 12.4V20a1 1 0 0 0 1 1h11.4a1 1 0 0 0 1-1v-7.6" />
+      {/* 세로 리본 */}
+      <path d="M12 8v13" />
+      {/* 왼쪽 리본 매듭 */}
+      <path d="M12 8C9 8 7.8 4.4 9.8 4.4c1.4 0 2.2 2 2.2 3.6Z" />
+      {/* 오른쪽 리본 매듭 */}
+      <path d="M12 8c3 0 4.2-3.6 2.2-3.6-1.4 0-2.2 2-2.2 3.6Z" />
     </svg>
   );
 }
@@ -200,7 +211,7 @@ export default function SignupPage() {
             </div>
 
             {/* 카페 쿠폰 인증 카드 */}
-            <div className="relative mt-7 overflow-hidden rounded-2xl border-2 border-dashed border-emerald-300/70 bg-emerald-50/60 px-5 py-6 text-center sm:mt-8 sm:px-6 sm:py-7">
+            <div className="relative mt-7 overflow-hidden rounded-2xl border border-emerald-200 bg-emerald-50/60 px-5 py-6 text-center sm:mt-8 sm:px-6 sm:py-7">
               <CoffeeIcon className="pointer-events-none absolute -left-3 bottom-1 h-20 w-20 text-emerald-500/10 sm:h-24 sm:w-24" />
               <GiftIcon className="pointer-events-none absolute -right-3 bottom-1 h-20 w-20 text-emerald-500/10 sm:h-24 sm:w-24" />
               <div className="relative">
