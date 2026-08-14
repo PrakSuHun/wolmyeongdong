@@ -18,7 +18,7 @@ const slices = [
 const spots = [
   { img: "/lawn-field.jpg", name: "잔디밭", tag: "잔디밭", desc: "넓게 펼쳐진 초록 잔디에 누워 하늘을 바라보며 깊은 숨을 들이쉬어보세요.", pos: "center" },
   { img: "/water-main.jpg", name: "월명호수", tag: "월명호", desc: "에메랄드 빛 물결과 시원한 폭포수. 더위도, 무거운 생각도 어느새 싸-악 씻겨내려갑니다.", pos: "center" },
-  { img: "/oasis-falls.jpg", name: "오아시스 폭포", tag: "폭포", desc: "월명동 세 폭포 중 가장 오래된 곳. 웅장한 두 폭포와 달리 정갈하고 자연스러운 멋이 살아 있는 공간입니다.", pos: "center" },
+  { img: "/oasis-falls.png", name: "오아시스 폭포", tag: "폭포", desc: "월명동 세 폭포 중 가장 오래된 곳. 웅장한 두 폭포와 달리 정갈하고 자연스러운 멋이 살아 있는 공간입니다.", pos: "center" },
   { img: "/rock-landscape.jpg", name: "야심작", tag: "돌조경", desc: "가로 200m·높이 35m, 세계 최대 규모의 돌조경. 수백 개의 자연석과 소나무·꽃이 어우러진 웅장한 조화로, 다섯 번 무너지고도 다시 쌓아 올린 집념의 걸작입니다.", pos: "center" },
 ];
 
