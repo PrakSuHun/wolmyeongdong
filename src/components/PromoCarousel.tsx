@@ -134,20 +134,20 @@ export function PromoCarousel() {
                     </span>
                   </div>
 
-                  <h3 className="mt-3 flex items-center gap-2 text-xl text-white sm:mt-4 sm:gap-3 sm:text-4xl">
+                  <h3 className="mt-3 flex items-center gap-1.5 text-sm font-semibold text-white/85 min-[376px]:text-base sm:mt-4 sm:gap-3 sm:text-4xl sm:font-normal sm:text-white">
                     <span>{s.emoji}</span>
                     {s.title}
                   </h3>
-                  <p className="mt-1.5 text-2xl font-extrabold text-white sm:mt-2 sm:text-5xl">
+                  <p className="mt-1 text-lg font-extrabold leading-tight text-white min-[376px]:mt-1.5 min-[376px]:text-2xl sm:mt-2 sm:text-5xl">
                     {s.highlight}
                   </p>
-                  <p className="mt-3 text-xs font-bold text-white/80 sm:mt-4 sm:text-sm">📅 {s.date}</p>
+                  <p className="mt-2.5 text-[0.7rem] font-bold text-white/80 min-[376px]:mt-3 min-[376px]:text-xs sm:mt-4 sm:text-sm">📅 {s.date}</p>
 
                   {!loggedIn ? (
                     // 비로그인 — 가입 유도
                     <Link
                       href="/signup"
-                      className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-bold text-foreground transition-colors hover:bg-white/90"
+                      className="mt-5 min-[376px]:mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-bold text-foreground transition-colors hover:bg-white/90"
                     >
                       자세히 보기 <span aria-hidden>→</span>
                     </Link>
@@ -155,13 +155,13 @@ export function PromoCarousel() {
                     // 로그인 + 신청 가능(진행 중) 행사 → 신청 페이지로
                     <Link
                       href={s.href}
-                      className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-bold text-foreground transition-colors hover:bg-white/90"
+                      className="mt-5 min-[376px]:mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-bold text-foreground transition-colors hover:bg-white/90"
                     >
                       신청하러 가기 <span aria-hidden>→</span>
                     </Link>
                   ) : (
                     // 로그인 + 오픈예정 행사 → 이동 없이 안내만
-                    <span className="mt-7 inline-flex items-center gap-2 rounded-full bg-white/15 px-7 py-3 text-sm font-bold text-white ring-1 ring-white/30 backdrop-blur-sm">
+                    <span className="mt-5 min-[376px]:mt-7 inline-flex items-center gap-2 rounded-full bg-white/15 px-7 py-3 text-sm font-bold text-white ring-1 ring-white/30 backdrop-blur-sm">
                       🔜 오픈예정 행사입니다
                     </span>
                   )}
