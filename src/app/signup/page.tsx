@@ -70,11 +70,16 @@ export default function SignupPage() {
   const [password2, setPassword2] = useState("");
   const [memberName, setMemberName] = useState("");
   const [testMode, setTestMode] = useState(false);
+  // 가입 처리 중에는 홈 리다이렉트를 막는 잠금장치.
+  // (가입 성공 → 세션 생성으로 user가 채워지는 순간과, 완료 화면(done) 표시 사이에
+  //  아래 useEffect가 끼어들어 홈으로 튕겨 쿠폰 화면을 못 보던 경쟁 조건을 차단한다.)
+  const [submitting, setSubmitting] = useState(false);
 
   // 이미 로그인한 회원은 회원가입 페이지에 머물 필요가 없다.
+  // 단, 지금 막 가입을 진행 중(submitting)이거나 완료 화면(done)일 때는 절대 보내지 않는다.
   useEffect(() => {
-    if (ready && user && !done) router.replace("/");
-  }, [ready, user, done, router]);
+    if (ready && user && !done && !submitting) router.replace("/");
+  }, [ready, user, done, submitting, router]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -105,6 +110,9 @@ export default function SignupPage() {
     if (!agreed) return setError("개인정보 수집·이용에 동의해주세요.");
 
     setLoading(true);
+    // 여기부터 가입 성공 시 세션이 생겨 user가 채워진다.
+    // 완료 화면(done)을 켜기 전까지 홈 리다이렉트를 막아 쿠폰 화면을 반드시 보이게 한다.
+    setSubmitting(true);
     try {
       const supabase = createClient();
       const { data, error } = await supabase.auth.signUp({
@@ -121,8 +129,13 @@ export default function SignupPage() {
         },
       });
       if (error) {
+        // 이미 가입된 아이디 = 같은 회원의 재신청(매 행사 신청 분위기용).
+        // 계정을 새로 만들 수 없고 명단 중복도 원치 않으므로, DB 저장은 건너뛰고
+        // 쿠폰 화면만 그대로 띄워준다. (신청 폼처럼 매번 쿠폰이 나오게)
         if (/already registered|already exists|registered/i.test(error.message)) {
-          throw new Error("이미 사용 중인 아이디입니다.");
+          setMemberName(name);
+          setDone(true);
+          return;
         }
         throw error;
       }
@@ -143,6 +156,9 @@ export default function SignupPage() {
       setError(err instanceof Error ? err.message : "가입 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);
+      // 완료(done)면 done이 리다이렉트를 막으므로 잠금을 풀어도 안전하고,
+      // 실패면 어차피 세션이 없어 리다이렉트가 일어나지 않는다.
+      setSubmitting(false);
     }
   }
 
